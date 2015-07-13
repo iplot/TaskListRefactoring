@@ -1,4 +1,6 @@
-﻿namespace DataAccess.Entities
+﻿using Newtonsoft.Json;
+
+namespace DataAccess.Entities
 {
     public class SubTask
     {
@@ -10,6 +12,7 @@
 
         public int TaskId { get; set; }
 
+        [JsonIgnore]
         public virtual Task Task { get; set; }
     }
 }

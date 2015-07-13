@@ -21,46 +21,46 @@ namespace DataAccess.Repositories
 
         public T Get(object id)
         {
-//            openAndCloseConnection(true);
+            openAndCloseConnection(true);
             var entity = _dataStore.Find(id);
-//            openAndCloseConnection(false);
+            openAndCloseConnection(false);
 
             return entity;
         }
 
         public IEnumerable<T> GetAll()
         {
-//            openAndCloseConnection(true);
+            openAndCloseConnection(true);
             var data = _dataStore.ToList();
-//            openAndCloseConnection(false);
+            openAndCloseConnection(false);
 
             return data;
         }
 
         public void Add(T newEntity)
         {
-//            openAndCloseConnection(true);
+            openAndCloseConnection(true);
             _dataStore.Add(newEntity);
             _context.SaveChanges();
-//            openAndCloseConnection(false);
+            openAndCloseConnection(false);
         }
 
         public void Update(T entity)
         {
-//            openAndCloseConnection(true);
+            openAndCloseConnection(true);
             _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
-//            openAndCloseConnection(false);
+            openAndCloseConnection(false);
         }
 
         public void Delete(int id)
         {
-//            openAndCloseConnection(true);
+            openAndCloseConnection(true);
             var entity = _dataStore.Find(id);
             _dataStore.Remove(entity);
 
             _context.SaveChanges();
-//            openAndCloseConnection(false);
+            openAndCloseConnection(false);
         }
 
         private void openAndCloseConnection(bool openConnection)

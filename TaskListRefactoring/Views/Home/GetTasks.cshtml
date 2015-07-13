@@ -5,19 +5,6 @@
     @foreach (var task in Model)
     {
         Html.RenderPartial("Task", task);
-
-//        if (task.SubTasks.Count != 0)
-//        {
-@*            <ul id="@task.TaskId">*@
-@*                @foreach (var sub in task.SubTasks)*@
-@*                {*@
-@*                    <li>*@
-@*                        <input type="checkbox" />*@
-@*                        @task.Text*@
-@*                    </li>*@
-@*                }*@
-@*            </ul>*@
-//        }
     }
 </ul>
 

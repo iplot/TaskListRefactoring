@@ -1,3 +1,4 @@
+using System.Web.Http;
 using System.Web.Mvc;
 using Ninject.Web.Mvc;
 
@@ -49,6 +50,7 @@ namespace TaskListRefactoring.App_Start
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 RegisterServices(kernel);
+
                 return kernel;
             }
             catch
@@ -64,6 +66,7 @@ namespace TaskListRefactoring.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+//            DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }        
     }

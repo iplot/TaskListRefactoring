@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Ninject;
+using Ninject.Web.Common;
+using TaskListRefactoring.Infrastructure;
 
 namespace TaskListRefactoring
 {
@@ -19,6 +22,9 @@ namespace TaskListRefactoring
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            IKernel k = new StandardKernel();
+            config.DependencyResolver = new NinjectDependencyResolver(k);
         }
     }
 }

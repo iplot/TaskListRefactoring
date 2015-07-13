@@ -3,34 +3,40 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
+using System.Web.Http.Dependencies;
 using DataAccess;
 using DataAccess.Entities;
 using DataAccess.Repositories;
 using Ninject;
 using TaskListRefactoring.Services;
+using IDependencyResolver = System.Web.Mvc.IDependencyResolver;
 
 namespace TaskListRefactoring.Infrastructure
 {
-    public class NinjectDependencyResolver : IDependencyResolver
+    public class NinjectDependencyResolver : NinjectDependencyScope, IDependencyResolver, System.Web.Http.Dependencies.IDependencyResolver
     {
         private IKernel _kernel;
 
-        public NinjectDependencyResolver(IKernel kernel)
+        public NinjectDependencyResolver(IKernel kernel) : base(kernel)
         {
             _kernel = kernel;
             addBindings();
         }
 
-        public object GetService(Type serviceType)
+        public IDependencyScope BeginScope()
         {
-            return _kernel.TryGet(serviceType);
+            return new NinjectDependencyScope(_kernel.BeginBlock());
         }
 
-        public IEnumerable<object> GetServices(Type serviceType)
-        {
-            return _kernel.GetAll(serviceType);
-        }
+//        public object GetService(Type serviceType)
+//        {
+//            return _kernel.TryGet(serviceType);
+//        }
+//
+//        public IEnumerable<object> GetServices(Type serviceType)
+//        {
+//            return _kernel.GetAll(serviceType);
+//        }
 
         private void addBindings()
         {

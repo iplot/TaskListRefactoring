@@ -139,6 +139,8 @@
     <Content Include="Views\Shared\ErrorPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiControllers\CategoryController.cs" />
+    <Compile Include="ApiControllers\SubTaskController.cs" />
     <Compile Include="ApiControllers\TaskController.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -149,6 +151,7 @@
     </Compile>
     <Compile Include="Infrastructure\MyExtensions.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
+    <Compile Include="Infrastructure\NinjectDependencyScope.cs" />
     <Compile Include="Models\IFinishedChanhgeable.cs" />
     <Compile Include="Models\TaskSaveViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

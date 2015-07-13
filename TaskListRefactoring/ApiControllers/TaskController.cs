@@ -4,10 +4,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Results;
 using System.Web.UI.WebControls;
 using DataAccess;
 using DataAccess.Entities;
 using DataAccess.Repositories;
+using TaskList.Models;
+using TaskListRefactoring.Infrastructure;
 using TaskListRefactoring.Services;
 
 namespace TaskListRefactoring.ApiControllers
@@ -18,31 +21,17 @@ namespace TaskListRefactoring.ApiControllers
         private BasicService<Task> _taskManager;
         private BasicService<SubTask> _subTaskManager;
 
-//        public TaskController(BasicService<Category> categoryService, BasicService<Task> taskService,
-//            BasicService<SubTask> subTaskService)
-//        {
-//            _categoryManager = categoryService;
-//            _taskManager = taskService;
-//            _subTaskManager = subTaskService;
-//        }
-
-        public TaskController()
+        public TaskController(BasicService<Category> categoryService, BasicService<Task> taskService,
+            BasicService<SubTask> subTaskService)
         {
-            TaskListContext context = new TaskListContext();
-
-            AbstractRepository<Category> catrep = new CategoryRepository(context);
-            AbstractRepository<Task> taskrep = new TaskRepository(context);
-            AbstractRepository<SubTask> subtrep = new SubTaskRepository(context);
-
-            _categoryManager = new CategoryManager(catrep);
-            _taskManager = new TaskManager(taskrep);
-            _subTaskManager = new SubTaskManager(subtrep);
+            _categoryManager = categoryService;
+            _taskManager = taskService;
+            _subTaskManager = subTaskService;
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         public IEnumerable<Task> GetTasks()
         {
-//            var result = ((TaskManager)_taskManager).GetAllData();
             var result = _taskManager.GetAllData();
 
             if (result.Success == null)
@@ -53,6 +42,50 @@ namespace TaskListRefactoring.ApiControllers
             var response = (List<Task>) result.Success;
 
             return response;
+        }
+
+        [System.Web.Http.HttpPost]
+        public Task AddTask(Task task)
+        {
+            if (task.CategoryId == 0)
+            {
+                return null;
+            }
+
+            var result = _taskManager.AddEntity(task);
+
+            if (result.Success == null)
+            {
+                return null;
+            }
+
+            return result.Success as Task;;
+        }
+
+        [HttpPut]
+        public void SaveTasks(List<TaskSaveViewModel> saveData)
+        {
+            if (saveData == null)
+            {
+                return;
+            }
+
+            _taskManager.UpdateFinished(saveData.Where(s => s.TaskType == 0));
+            _subTaskManager.UpdateFinished(saveData.Where(s => s.TaskType != 0));
+        }
+
+        [HttpDelete]
+        public string DeleteTasks(List<TaskSaveViewModel> deleteData)
+        {
+            if (deleteData == null)
+            {
+                return "";
+            }
+
+            _taskManager.DeleteEntity(deleteData.Where(s => s.TaskType == 0).Select(s => s.Id).ToArray());
+            _subTaskManager.DeleteEntity(deleteData.Where(s => s.TaskType != 0).Select(s => s.Id).ToArray());
+
+            return "Ok";
         }
     }
 }
