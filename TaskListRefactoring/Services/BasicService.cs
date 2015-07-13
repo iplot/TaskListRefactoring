@@ -16,7 +16,7 @@ namespace TaskListRefactoring.Services
             _repository = repositry;
         }
 
-        public ServiceResult GetAllData()
+        public virtual ServiceResult GetAllData()
         {
             try
             {

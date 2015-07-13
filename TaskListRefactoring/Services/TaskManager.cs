@@ -8,10 +8,31 @@ using TaskList.Models;
 
 namespace TaskListRefactoring.Services
 {
-    public class TaskManager : BasicService<Task>, IFinishedChanhgeable
+    public class TaskManager : BasicService<Task>
     {
         public TaskManager(AbstractRepository<Task> repositry) : base(repositry)
         {
+        }
+
+        public override ServiceResult GetAllData()
+        {
+            var result = base.GetAllData();
+
+            if (result.Success == null)
+            {
+                return result;
+            }
+
+            var tasks = (List<Task>) result.Success;
+            for (int i = 0; i < tasks.Count; i++)
+            {
+                tasks[i].SubTasks = null;
+                tasks[i].Category = null;
+            }
+
+            result.Success = tasks;
+
+            return result;
         }
 
         public ServiceResult GetTasksByCategory(int categoryId)
