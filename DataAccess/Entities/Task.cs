@@ -20,10 +20,10 @@ namespace DataAccess.Entities
         public int CategoryId { get; set; }
 
         [JsonIgnore]
-        public virtual Category Category { get; set; }
+        public Category Category { get; set; }
 
         [InverseProperty("Task")]
 //        [JsonIgnore]
-        public virtual List<SubTask> SubTasks { get; set; }
+        public List<SubTask> SubTasks { get; set; }
     }
 }

@@ -26,6 +26,7 @@ namespace TaskListRefactoring.ApiControllers
         }
 
         [HttpGet]
+        [Route("category", Name = "GetCategoryes")]
         public IEnumerable<Category> GetCategories()
         {
             var result = _categoryManager.GetAllData();
@@ -39,6 +40,7 @@ namespace TaskListRefactoring.ApiControllers
         }
 
         [HttpPost]
+        [Route("category/add", Name = "AddCategory")]
         public Category AddCategory(Category category)
         {
             var result = _categoryManager.AddEntity(category);

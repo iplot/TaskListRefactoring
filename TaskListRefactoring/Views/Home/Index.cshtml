@@ -28,34 +28,32 @@
     <div class="col-md-6">
         <h2>Add new category</h2>
         <div>
-            @using (Ajax.BeginForm("AddCategory", new AjaxOptions {OnSuccess = "categorySuccess"}))
-            {
-                @Html.TextBox("Name", "", new{required = ""})
-                <button class="btn btn-default" type="submit">Add Category</button>
-            }
+            <form name="category" id ="category">
+                @Html.TextBox("Name", "", new { required = "" })
+                <button class="btn btn-default" type="button" onclick="addCategoryClick()">Add Category</button>
+            </form>
         </div>
 
         <h2>Add new task</h2>
         <div>
-            @using (Ajax.BeginForm("AddTask", new AjaxOptions {OnSuccess = "addTask"}))
-            {
+            <form name="task" id="task">
                 <div class="form-group">
                     <label for="CategoryId">Category</label>
-                    @Html.DropDownList("CategoryId", list, "Select an item", new {@class = "form-control"})
+                    @Html.DropDownList("CategoryId", list, "Select an item", new { @class = "form-control" })
                 </div>
 
                 <div class="form-group">
                     <label for="Text">Text</label>
-                    @Html.TextBox("Text", "", new {@class = "form-control", required = ""})
+                    @Html.TextBox("Text", "", new { @class = "form-control", required = "" })
                 </div>
 
                 <div class="form-group">
                     <label for="Date">Date</label>
-                    <input class="form-control" name="Date" type="date" required=""/>
+                    <input class="form-control" name="Date" id="date" type="date" required="" />
                 </div>
 
-                <button class="btn btn-primary" type="submit">Add task</button>
-            }
+                <button class="btn btn-primary" type="button" onclick="addTaskClick()">Add task</button>
+            </form>
         </div>
     </div>
 </div>
@@ -63,6 +61,7 @@
 <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 <script src="~/Scripts/MyScripts/TaskListScripts.js"></script>
+<script src="~/Scripts/MyScripts/AdditionForApi.js"></script>
 
 </body>
 </html>

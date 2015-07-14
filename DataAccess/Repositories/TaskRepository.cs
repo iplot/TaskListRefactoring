@@ -9,8 +9,8 @@ namespace DataAccess.Repositories
 {
     public class TaskRepository : AbstractRepository<Task>
     {
-        public TaskRepository(TaskListContext context)
-            : base(context)
+        public TaskRepository()
+            : base()
         {
         }
     }

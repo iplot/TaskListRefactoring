@@ -1,4 +1,5 @@
-﻿@model DataAccess.Entities.Task
+﻿@using DataAccess.Entities
+@model DataAccess.Entities.Task
 <li>
     <input type="checkbox" @(Model.IsFinished ? "checked" : "") value="@Model.TaskId" data-type="0"/>
     @Model.Text (@Model.Date.ToShortDateString())
@@ -8,7 +9,7 @@
         <button class="btn btn-primary">Add SubTask</button>
     }
     <ul id="@Model.TaskId">
-        @foreach (var sub in Model.SubTasks)
+        @foreach (var sub in Model.SubTasks ?? new List<SubTask>())
         {
             <li>
                 <input type="checkbox" @(sub.IsFinished ? "checked" : "") value="@sub.SubTaskId" data-type="1"/>

@@ -10,8 +10,8 @@ namespace DataAccess.Repositories
 {
     public class CategoryRepository : AbstractRepository<Category>
     {
-        public CategoryRepository(TaskListContext context)
-            : base(context)
+        public CategoryRepository()
+            : base()
         {
         }
     }

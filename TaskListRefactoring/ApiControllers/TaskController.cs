@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.ModelBinding;
 using System.Web.Http.Results;
 using System.Web.UI.WebControls;
 using DataAccess;
@@ -29,10 +30,11 @@ namespace TaskListRefactoring.ApiControllers
             _subTaskManager = subTaskService;
         }
 
-        [System.Web.Http.HttpGet]
-        public IEnumerable<Task> GetTasks()
+        [HttpGet]
+        [Route("task", Name = "GetTasks")]
+        public IEnumerable<Task> GetTasks(int categoryId)
         {
-            var result = _taskManager.GetAllData();
+            var result = _taskManager.GetTasksByCategoryId(categoryId);
 
             if (result.Success == null)
             {
@@ -40,11 +42,13 @@ namespace TaskListRefactoring.ApiControllers
             }
 
             var response = (List<Task>) result.Success;
+            (_subTaskManager as SubTaskManager).AddSubtasksToTasks(response);
 
             return response;
         }
 
-        [System.Web.Http.HttpPost]
+        [HttpPost]
+        [Route("task/add", Name = "AddTask")]
         public Task AddTask(Task task)
         {
             if (task.CategoryId == 0)
@@ -59,11 +63,12 @@ namespace TaskListRefactoring.ApiControllers
                 return null;
             }
 
-            return result.Success as Task;;
+            return result.Success as Task;
         }
 
         [HttpPut]
-        public void SaveTasks(List<TaskSaveViewModel> saveData)
+        [Route("task/save", Name = "SaveTask")]
+        public void SaveTasks([ModelBinder]List<TaskSaveViewModel> saveData)
         {
             if (saveData == null)
             {
@@ -75,6 +80,7 @@ namespace TaskListRefactoring.ApiControllers
         }
 
         [HttpDelete]
+        [Route("task/delete", Name = "DeleteTask")]
         public string DeleteTasks(List<TaskSaveViewModel> deleteData)
         {
             if (deleteData == null)

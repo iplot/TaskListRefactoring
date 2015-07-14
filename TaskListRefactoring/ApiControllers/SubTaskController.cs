@@ -26,6 +26,7 @@ namespace TaskListRefactoring.ApiControllers
         }
 
         [HttpPost]
+        [Route("subtask/add", Name = "AddSubtask")]
         public SubTask AddSubTask(SubTask subTask)
         {
             var result = _subTaskManager.AddEntity(subTask);

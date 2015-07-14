@@ -13,6 +13,6 @@ namespace DataAccess.Entities
         public int TaskId { get; set; }
 
         [JsonIgnore]
-        public virtual Task Task { get; set; }
+        public Task Task { get; set; }
     }
 }

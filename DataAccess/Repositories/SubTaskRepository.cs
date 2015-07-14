@@ -10,8 +10,8 @@ namespace DataAccess.Repositories
 {
     public class SubTaskRepository : AbstractRepository<SubTask>
     {
-        public SubTaskRepository(TaskListContext context)
-            : base(context)
+        public SubTaskRepository()
+            : base()
         {
         }
     }

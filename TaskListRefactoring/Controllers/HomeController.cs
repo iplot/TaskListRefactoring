@@ -57,14 +57,17 @@ namespace TaskListRefactoring.Controllers
         [HttpGet]
         public ActionResult GetTasks(int categoryId)
         {
-            var result = _taskManager.GetAllData();
+            var result = _taskManager.GetTasksByCategoryId(categoryId);
 
             if (result.Success == null)
             {
                 return View(result.Errors);
             }
 
-            return PartialView(result.Success);
+            var response = (List<Task>)result.Success;
+            (_subTaskManager as SubTaskManager).AddSubtasksToTasks(response);
+
+            return PartialView(response);
         }
 
         [HttpPost]
@@ -102,7 +105,7 @@ namespace TaskListRefactoring.Controllers
                         TaskId = newSubTask.TaskId,
                         Text = newSubTask.Text,
                         IsFinished = newSubTask.IsFinished,
-                        Id = newSubTask.SubTaskId
+                        SubTaskId = newSubTask.SubTaskId
                     });
             }
             else
@@ -111,7 +114,7 @@ namespace TaskListRefactoring.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         public ActionResult SaveTasks(List<TaskSaveViewModel> saveData)
         {
             if (saveData == null)
@@ -125,7 +128,7 @@ namespace TaskListRefactoring.Controllers
             return Json("");
         }
 
-        [HttpPost]
+        [HttpDelete]
         public ActionResult DeleteTasks(List<TaskSaveViewModel> deleteData)
         {
             if (deleteData == null)

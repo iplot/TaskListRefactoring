@@ -33,5 +33,15 @@ namespace TaskListRefactoring.Services
                 return new ServiceResult {Errors = exception.Message, Success = null};
             }
         }
+
+        public void AddSubtasksToTasks(IEnumerable<Task> tasks)
+        {
+            var subtasks = (List<SubTask>)GetAllData().Success;
+
+            foreach (var task in tasks)
+            {
+                task.SubTasks = subtasks.Where(s => s.TaskId == task.TaskId).ToList();
+            }
+        }
     }
 }

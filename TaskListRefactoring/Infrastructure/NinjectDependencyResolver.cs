@@ -28,26 +28,11 @@ namespace TaskListRefactoring.Infrastructure
             return new NinjectDependencyScope(_kernel.BeginBlock());
         }
 
-//        public object GetService(Type serviceType)
-//        {
-//            return _kernel.TryGet(serviceType);
-//        }
-//
-//        public IEnumerable<object> GetServices(Type serviceType)
-//        {
-//            return _kernel.GetAll(serviceType);
-//        }
-
         private void addBindings()
         {
-//            _kernel.Bind<DbContext>().To<TaskListContext>();
-
-            _kernel.Bind<AbstractRepository<Category>>().To<CategoryRepository>()
-                .WithConstructorArgument("context", new TaskListContext());
-            _kernel.Bind<AbstractRepository<Task>>().To<TaskRepository>()
-                .WithConstructorArgument("context", new TaskListContext());
-            _kernel.Bind<AbstractRepository<SubTask>>().To<SubTaskRepository>()
-                .WithConstructorArgument("context", new TaskListContext()); 
+            _kernel.Bind<AbstractRepository<Category>>().To<CategoryRepository>();
+            _kernel.Bind<AbstractRepository<Task>>().To<TaskRepository>();
+            _kernel.Bind<AbstractRepository<SubTask>>().To<SubTaskRepository>(); 
             
             _kernel.Bind<BasicService<Category>>().To<CategoryManager>();
             _kernel.Bind<BasicService<Task>>().To<TaskManager>();

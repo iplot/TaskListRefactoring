@@ -2,9 +2,12 @@
     $('#CategoryId').change(function () {
         var categoryId = $(this).val();
 
-        $.get('../Home/GetTasks', { 'categoryId': categoryId }, function (data) {
+        $.get('../task', { 'categoryId': categoryId }, function (data) {
+//        $.get('../Home/GetTasks', { 'categoryId': categoryId }, function (data) {
+            var data = renderTaskList(data);
             $('#taskListContainer').html(data);
-        }, 'html');
+        }, 'json');
+//            }, 'html');
     });
 
     onTaskChecked();
@@ -21,7 +24,7 @@ function addTask(data) {
 
 function addSubTask(data) {
     var subtaskHtml = '<li><input type="checkbox" ' + (data.IsFinished ? 'checked' : '') + 
-        'value=' + data.Id + ' data-type="1" />' + data.Text +'</li>';
+        'value=' + data.SubTaskId + ' data-type="1" />' + data.Text + '</li>';
     $('#' + data.TaskId).append(subtaskHtml);
 }
 
@@ -43,8 +46,9 @@ function onSaveClick() {
 
     $.ajax({
         url: '../Home/SaveTasks',
+//        url: '../task/save',
         data: str,
-        type: 'POST',
+        type: 'PUT',
         contentType: 'application/json',
         dataType: 'json',
         success: function(result) {
@@ -123,8 +127,9 @@ function onDeleteClicked() {
 
     $.ajax({
         url: '../Home/DeleteTasks',
+//        url: '../task/delete',
         data: str,
-        type: 'POST',
+        type: 'DELETE',
         contentType: 'application/json',
         dataType: 'json',
         success: function (result) {

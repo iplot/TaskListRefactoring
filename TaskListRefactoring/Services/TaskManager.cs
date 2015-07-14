@@ -23,15 +23,6 @@ namespace TaskListRefactoring.Services
                 return result;
             }
 
-//            var tasks = (List<Task>) result.Success;
-//            for (int i = 0; i < tasks.Count; i++)
-//            {
-//                tasks[i].SubTasks = null;
-//                tasks[i].Category = null;
-//            }
-//
-//            result.Success = tasks;
-
             return result;
         }
 

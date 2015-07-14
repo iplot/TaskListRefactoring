@@ -10,6 +10,18 @@ namespace TaskListRefactoring.Infrastructure
 {
     public static class MyExtensions
     {
+        public static ServiceResult GetTasksByCategoryId(this BasicService<Task> manager, int categoryId)
+        {
+            var result = manager.GetAllData();
+
+            if (result.Success != null)
+            {
+                result.Success = ((List<Task>) result.Success).Where(t => t.CategoryId == categoryId).ToList();
+            }
+
+            return result;
+        }
+
         public static void UpdateFinished(this BasicService<Task> manager, IEnumerable<TaskSaveViewModel> saveData)
         {
             try

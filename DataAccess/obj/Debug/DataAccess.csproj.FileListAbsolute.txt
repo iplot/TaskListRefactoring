@@ -7,6 +7,6 @@ D:\GitRepos\TaskListRefactoring\DataAccess\bin\Debug\EntityFramework.xml
 D:\GitRepos\TaskListRefactoring\DataAccess\bin\Debug\EntityFramework.SqlServer.xml
 D:\GitRepos\TaskListRefactoring\DataAccess\obj\Debug\DataAccess.dll
 D:\GitRepos\TaskListRefactoring\DataAccess\obj\Debug\DataAccess.pdb
-D:\GitRepos\TaskListRefactoring\DataAccess\obj\Debug\DataAccess.csprojResolveAssemblyReference.cache
 D:\GitRepos\TaskListRefactoring\DataAccess\bin\Debug\Newtonsoft.Json.dll
 D:\GitRepos\TaskListRefactoring\DataAccess\bin\Debug\Newtonsoft.Json.xml
+D:\GitRepos\TaskListRefactoring\DataAccess\obj\Debug\DataAccess.csprojResolveAssemblyReference.cache
