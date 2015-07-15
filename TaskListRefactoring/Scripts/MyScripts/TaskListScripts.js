@@ -3,11 +3,9 @@
         var categoryId = $(this).val();
 
         $.get('../task', { 'categoryId': categoryId }, function (data) {
-//        $.get('../Home/GetTasks', { 'categoryId': categoryId }, function (data) {
             var data = renderTaskList(data);
             $('#taskListContainer').html(data);
         }, 'json');
-//            }, 'html');
     });
 
     onTaskChecked();
@@ -18,7 +16,6 @@ function categorySuccess(data) {
 }
 
 function addTask(data) {
-//    var taskHtml = '<li>' + data.Text + ' (' + data.Date + ')</li>';
     $('#taskList').append(data);
 }
 

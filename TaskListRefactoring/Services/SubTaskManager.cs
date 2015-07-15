@@ -21,11 +21,6 @@ namespace TaskListRefactoring.Services
                 var subtasks = (List<SubTask>) GetAllData().Success;
                 var subtasksByTask = subtasks.Where(s => s.TaskId == taskId).ToList();
 
-//                foreach (var subtask in subtasksByTask)
-//                {
-//                    subtask.Task = null;
-//                }
-
                 return new ServiceResult {Errors = "", Success = subtasksByTask};
             }
             catch (Exception exception)

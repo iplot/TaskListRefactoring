@@ -23,7 +23,6 @@ namespace DataAccess.Entities
         public Category Category { get; set; }
 
         [InverseProperty("Task")]
-//        [JsonIgnore]
         public List<SubTask> SubTasks { get; set; }
     }
 }

@@ -27,7 +27,7 @@ function addTaskClick() {
         type: 'POST',
         dataType: 'json',
         success: function(data) {
-            addTask(generateTaskHtml());
+            addTask(generateTaskHtml(data));
         }
     });
 }
@@ -35,7 +35,7 @@ function addTaskClick() {
 //!!!!
 function generateTaskHtml(data) {
     var html = '<li><input type="checkbox"' + (data.IsFinished ? ' checked ' : '') + 'value="' + data.TaskId + '" data-type="0"/>' +
-        data.Text + '(' + data.Date + ')' +
+        data.Text + ' (' + data.Date.split('T')[0] + ')' +
         '<form name="subTask" id="subTask">' +
         '<input type="text" value="'+ data.TaskId +'" class="hidden" name="TaskId"/>' +
         '<input type="text" name="Text" required=""/>' +
@@ -56,6 +56,11 @@ function generateTaskHtml(data) {
 
 function addSubTaskClick(item) {
     var form = $(item).parent();
+    var text = $(form).find('input[name="Text"]');
+
+    if ($(text).val() == '') {
+        return;
+    }
 
     $.ajax({
         url: '../subtask/add',
